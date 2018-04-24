@@ -3,6 +3,7 @@ import pandas as pd
 import sys
 import numpy as np
 import pickle
+import main
 
 NUM_PLAYERS = 7
 
@@ -23,7 +24,7 @@ def get_all_data():
             data.append((var_cost, capacity, str(part), types.index(name)))
     return sorted(data)
 
-bid_mc = get_all_data()
+world = get_all_data()
 
 def visualize(data, show=True, period=0):
     cumulative = 0
@@ -45,13 +46,27 @@ def visualize(data, show=True, period=0):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) == 1:
-        visualize(bid_mc, True, 0)
-    elif len(sys.argv) == 2:
-        period = int(sys.argv[1])
-        visualize(bid_mc, True, period)
-    else:
-        world = pickle.load(open(sys.argv[1]))
-        period = int(sys.argv[2])
-        visualize(world, True, period)
+    data = main.get_flat_worlds()
+    for i, world in enumerate(data):
+        visualize(world, True, i)
+        print i
+        for bid in world:
+            if bid[-1] == 6:
+                print bid
+
+    # if len(sys.argv) == 1:
+    #     visualize(world, True, 0)
+    # elif len(sys.argv) == 2:
+    #     period = int(sys.argv[1])
+    #     visualize(world, True, period)
+    # else:
+    #     world = pickle.load(open(sys.argv[1]))
+    #     period = int(sys.argv[2])
+    #     visualize(world, True, period)
+    #
+    # for bid in world:
+    #     if bid[-1] == 6:
+    #         print bid
+
+
 

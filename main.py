@@ -195,9 +195,15 @@ def flatten_world(world, period=0):
             data.append((bid, capacity, part, types.index(name)))
     return data
 
+def get_flat_worlds():
+    world = simulate()
+    data = []
+    for period in range(NUM_PERIODS):
+        data.append(flatten_world(world, period=period))
+    return data
+
 if __name__ == "__main__":
     world = simulate()
     flat_world = flatten_world(world)
     pickle.dump(flat_world, open("world.p", 'w'))
-
 
