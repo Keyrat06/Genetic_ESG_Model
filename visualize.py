@@ -3,7 +3,7 @@ import pandas as pd
 import sys
 import numpy as np
 import pickle
-import main
+import main_CO2 as main
 
 NUM_PLAYERS = 7
 
@@ -51,7 +51,7 @@ if __name__ == "__main__":
         visualize(world, True, i)
         print i
         for bid in world:
-            if bid[-1] == 6:
+            if bid[-1] == 3:
                 print bid
 
     # if len(sys.argv) == 1:
