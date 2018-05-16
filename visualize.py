@@ -3,7 +3,8 @@ import pandas as pd
 import sys
 import numpy as np
 import pickle
-import main_CO2 as main
+# import main_CO2 as main
+import main
 
 NUM_PLAYERS = 7
 
@@ -37,12 +38,12 @@ def visualize(data, show=True, period=0):
         plt.plot([], label=type, color=colors[i])
 
 
-    plt.vlines(demands[period], 0, 100)
-    plt.text(demands[period]-5, 5, "week {} hour {}".format(int(period)//4 + 1, period%4 + 1), fontsize=5)
+    plt.vlines(demands[period], 0, 500)
+    plt.text(demands[period]-5, 5, "Day {} hour {}".format(int(period)//4 + 1, period%4 + 1), fontsize=5)
     plt.legend()
 
     if show:
-        plt.show()
+        plt.show('hold')
 
 
 if __name__ == "__main__":

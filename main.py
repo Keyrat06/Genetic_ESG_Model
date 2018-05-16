@@ -21,7 +21,7 @@ colors = ['dimgray','c','g','y','r','b','m']
 
 
 class GeneticPlayer:
-    def __init__(self, capacity, var_cost, OM, num_periods=12, name="", names=[], r=0.25, s=0.5):
+    def __init__(self, capacity, var_cost, OM, num_periods=12, name="", names=[], r=0.25, s=0.5, p=0.5):
         self.name = name
         self.names = names
         self.num_periods = num_periods
@@ -31,10 +31,15 @@ class GeneticPlayer:
         self.OM = OM
         self.bids = (1+r*np.random.random((self.N, num_periods))) * (self.MC[:, np.newaxis]) \
                                   + np.random.normal(0, s, (self.N, self.num_periods))**2
+        for i in range(len(self.bids)):
+            for j in range(len(self.bids[0])):
+                if np.random.random() > p:
+                    self.bids[i, j] = 500 - np.random.normal(0, 2)**2
 
     def get_bids(self, period):
         assert period < self.num_periods
         return self.bids[:, period]
+
 
 def play_game(players):
     assert len(players) == NUM_PLAYERS
@@ -149,7 +154,7 @@ def populate(worlds, N):
 def make_simple_world():
     players = []
     for pop_type in pop_types:
-        players.append(GeneticPlayer(r=0, s=0, **pop_type))
+        players.append(GeneticPlayer(r=0, s=0, p=1.0, **pop_type))
     return players
 
 
